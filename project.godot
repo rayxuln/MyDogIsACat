@@ -1,0 +1,292 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "BTNode",
+"class": "BTAction",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/actions/BTAction.gd"
+}, {
+"base": "BTAction",
+"class": "BTActionFail",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/actions/BTActionFail.gd"
+}, {
+"base": "BTAction",
+"class": "BTActionSuccess",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/actions/BTActionSuccess.gd"
+}, {
+"base": "BTAction",
+"class": "BTActionTimer",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/actions/BTActionTimer.gd"
+}, {
+"base": "BTNode",
+"class": "BTComposite",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTComposite.gd"
+}, {
+"base": "BTComposite",
+"class": "BTCompositeDynamicGuardSelector",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeDynamicGuardSelector.gd"
+}, {
+"base": "BTComposite",
+"class": "BTCompositeParallel",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeParallel.gd"
+}, {
+"base": "BTCompositeSelector",
+"class": "BTCompositeRandomSelector",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeRandomSelector.gd"
+}, {
+"base": "BTCompositeSequence",
+"class": "BTCompositeRandomSequence",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeRandomSequence.gd"
+}, {
+"base": "BTCompositeSingle",
+"class": "BTCompositeSelector",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeSelector.gd"
+}, {
+"base": "BTCompositeSingle",
+"class": "BTCompositeSequence",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeSequence.gd"
+}, {
+"base": "BTComposite",
+"class": "BTCompositeSingle",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeSingle.gd"
+}, {
+"base": "BTNode",
+"class": "BTDecorator",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecorator.gd"
+}, {
+"base": "BTDecorator",
+"class": "BTDecoratorAlwaysFail",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorAlwaysFail.gd"
+}, {
+"base": "BTDecorator",
+"class": "BTDecoratorAlwaysSucceed",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorAlwaysSucceed.gd"
+}, {
+"base": "BTDecorator",
+"class": "BTDecoratorInvert",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorInvert.gd"
+}, {
+"base": "BTDecorator",
+"class": "BTDecoratorRandom",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorRandom.gd"
+}, {
+"base": "BTLoopDecorator",
+"class": "BTDecoratorRepeat",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorRepeat.gd"
+}, {
+"base": "BTLoopDecorator",
+"class": "BTDecoratorUntilFail",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorUntilFail.gd"
+}, {
+"base": "BTLoopDecorator",
+"class": "BTDecoratorUntilSuccess",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorUntilSuccess.gd"
+}, {
+"base": "BTDecorator",
+"class": "BTLoopDecorator",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTLoopDecorator.gd"
+}, {
+"base": "Node",
+"class": "BTNode",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/BTNode.gd"
+}, {
+"base": "Node",
+"class": "BTTaskPathModelUpdator",
+"language": "GDScript",
+"path": "res://lib/basic/BTTaskPathModelUpdator.gd"
+}, {
+"base": "Node",
+"class": "BaseSkillManager",
+"language": "GDScript",
+"path": "res://lib/basic/BaseSkillManager.gd"
+}, {
+"base": "BTNode",
+"class": "BehaviorTree",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/behavior_tree/classes/BehaviorTree.gd"
+}, {
+"base": "Resource",
+"class": "BehaviorTreeScriptResource",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/import_plugin/BehaviorTreeScriptResource.gd"
+}, {
+"base": "Node",
+"class": "DataModel",
+"language": "GDScript",
+"path": "res://lib/basic/DataModel.gd"
+}, {
+"base": "Node",
+"class": "Database",
+"language": "GDScript",
+"path": "res://lib/basic/Database.gd"
+}, {
+"base": "StateHandler",
+"class": "DefaultStateHandler",
+"language": "GDScript",
+"path": "res://lib/basic/DefaultStateHandler.gd"
+}, {
+"base": "Node",
+"class": "InputManager",
+"language": "GDScript",
+"path": "res://lib/basic/InputManager.gd"
+}, {
+"base": "Reference",
+"class": "InputState",
+"language": "GDScript",
+"path": "res://lib/basic/InputState.gd"
+}, {
+"base": "Node",
+"class": "ModelConnector",
+"language": "GDScript",
+"path": "res://lib/basic/ModelConnector.gd"
+}, {
+"base": "Node",
+"class": "ModelUpdator",
+"language": "GDScript",
+"path": "res://lib/basic/ModelUpdator.gd"
+}, {
+"base": "Node",
+"class": "ModelWatcher",
+"language": "GDScript",
+"path": "res://lib/basic/ModelWatcher.gd"
+}, {
+"base": "BTAction",
+"class": "NodeDependencyBTAction",
+"language": "GDScript",
+"path": "res://lib/basic/NodeDependencyBTAction.gd"
+}, {
+"base": "BTActionTimer",
+"class": "NodeDependencyBTActionTimer",
+"language": "GDScript",
+"path": "res://lib/basic/NodeDependencyBTActionTimer.gd"
+}, {
+"base": "SimpleStateMachine",
+"class": "NodeDependencyStateMachine",
+"language": "GDScript",
+"path": "res://lib/basic/NodeDependencyStateMachine.gd"
+}, {
+"base": "StateHandler",
+"class": "SignalStateHandler",
+"language": "GDScript",
+"path": "res://lib/basic/SignalStateHandler.gd"
+}, {
+"base": "Node",
+"class": "SimpleStateMachine",
+"language": "GDScript",
+"path": "res://lib/basic/StateMachine.gd"
+}, {
+"base": "Node",
+"class": "StateHandler",
+"language": "GDScript",
+"path": "res://lib/basic/StateHandler.gd"
+}, {
+"base": "Object",
+"class": "StateHandlerFactory",
+"language": "GDScript",
+"path": "res://lib/basic/StateHandlerFactory.gd"
+}, {
+"base": "StateHandler",
+"class": "TimerStateHandler",
+"language": "GDScript",
+"path": "res://lib/basic/TimerStateHandler.gd"
+} ]
+_global_script_class_icons={
+"BTAction": "",
+"BTActionFail": "",
+"BTActionSuccess": "",
+"BTActionTimer": "",
+"BTComposite": "",
+"BTCompositeDynamicGuardSelector": "",
+"BTCompositeParallel": "",
+"BTCompositeRandomSelector": "",
+"BTCompositeRandomSequence": "",
+"BTCompositeSelector": "",
+"BTCompositeSequence": "",
+"BTCompositeSingle": "",
+"BTDecorator": "",
+"BTDecoratorAlwaysFail": "",
+"BTDecoratorAlwaysSucceed": "",
+"BTDecoratorInvert": "",
+"BTDecoratorRandom": "",
+"BTDecoratorRepeat": "",
+"BTDecoratorUntilFail": "",
+"BTDecoratorUntilSuccess": "",
+"BTLoopDecorator": "",
+"BTNode": "",
+"BTTaskPathModelUpdator": "",
+"BaseSkillManager": "",
+"BehaviorTree": "res://addons/naive_behavior_tree/icon.svg",
+"BehaviorTreeScriptResource": "res://addons/naive_behavior_tree/icon.svg",
+"DataModel": "",
+"Database": "",
+"DefaultStateHandler": "",
+"InputManager": "",
+"InputState": "",
+"ModelConnector": "",
+"ModelUpdator": "",
+"ModelWatcher": "",
+"NodeDependencyBTAction": "",
+"NodeDependencyBTActionTimer": "",
+"NodeDependencyStateMachine": "",
+"SignalStateHandler": "",
+"SimpleStateMachine": "",
+"StateHandler": "",
+"StateHandlerFactory": "",
+"TimerStateHandler": ""
+}
+
+[application]
+
+config/name="My Dog Is A Cat"
+run/main_scene="res://Gaming.tscn"
+config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/dpi/allow_hidpi=true
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/naive_behavior_tree/plugin.cfg" )
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
