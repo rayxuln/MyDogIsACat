@@ -122,12 +122,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "BTTaskPathModelUpdator",
 "language": "GDScript",
-"path": "res://lib/basic/BTTaskPathModelUpdator.gd"
+"path": "res://lib/basic/mvvm/BTTaskPathModelUpdator.gd"
 }, {
 "base": "Node",
 "class": "BaseSkillManager",
 "language": "GDScript",
-"path": "res://lib/basic/BaseSkillManager.gd"
+"path": "res://lib/basic/skill/BaseSkillManager.gd"
 }, {
 "base": "BTNode",
 "class": "BehaviorTree",
@@ -142,82 +142,82 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "DataModel",
 "language": "GDScript",
-"path": "res://lib/basic/DataModel.gd"
+"path": "res://lib/basic/mvvm/DataModel.gd"
 }, {
 "base": "Node",
 "class": "Database",
 "language": "GDScript",
-"path": "res://lib/basic/Database.gd"
+"path": "res://lib/basic/mvvm/Database.gd"
 }, {
 "base": "StateHandler",
 "class": "DefaultStateHandler",
 "language": "GDScript",
-"path": "res://lib/basic/DefaultStateHandler.gd"
+"path": "res://lib/basic/statemachine/DefaultStateHandler.gd"
 }, {
 "base": "Node",
 "class": "InputManager",
 "language": "GDScript",
-"path": "res://lib/basic/InputManager.gd"
+"path": "res://lib/basic/skill/InputManager.gd"
 }, {
 "base": "Reference",
 "class": "InputState",
 "language": "GDScript",
-"path": "res://lib/basic/InputState.gd"
+"path": "res://lib/basic/skill/InputState.gd"
 }, {
 "base": "Node",
 "class": "ModelConnector",
 "language": "GDScript",
-"path": "res://lib/basic/ModelConnector.gd"
+"path": "res://lib/basic/mvvm/ModelConnector.gd"
 }, {
 "base": "Node",
 "class": "ModelUpdator",
 "language": "GDScript",
-"path": "res://lib/basic/ModelUpdator.gd"
+"path": "res://lib/basic/mvvm/ModelUpdator.gd"
 }, {
 "base": "Node",
 "class": "ModelWatcher",
 "language": "GDScript",
-"path": "res://lib/basic/ModelWatcher.gd"
+"path": "res://lib/basic/mvvm/ModelWatcher.gd"
 }, {
 "base": "BTAction",
 "class": "NodeDependencyBTAction",
 "language": "GDScript",
-"path": "res://lib/basic/NodeDependencyBTAction.gd"
+"path": "res://lib/basic/skill/NodeDependencyBTAction.gd"
 }, {
 "base": "BTActionTimer",
 "class": "NodeDependencyBTActionTimer",
 "language": "GDScript",
-"path": "res://lib/basic/NodeDependencyBTActionTimer.gd"
+"path": "res://lib/basic/skill/NodeDependencyBTActionTimer.gd"
 }, {
 "base": "SimpleStateMachine",
 "class": "NodeDependencyStateMachine",
 "language": "GDScript",
-"path": "res://lib/basic/NodeDependencyStateMachine.gd"
+"path": "res://lib/basic/skill/NodeDependencyStateMachine.gd"
 }, {
 "base": "StateHandler",
 "class": "SignalStateHandler",
 "language": "GDScript",
-"path": "res://lib/basic/SignalStateHandler.gd"
+"path": "res://lib/basic/statemachine/SignalStateHandler.gd"
 }, {
 "base": "Node",
 "class": "SimpleStateMachine",
 "language": "GDScript",
-"path": "res://lib/basic/StateMachine.gd"
+"path": "res://lib/basic/statemachine/StateMachine.gd"
 }, {
 "base": "Node",
 "class": "StateHandler",
 "language": "GDScript",
-"path": "res://lib/basic/StateHandler.gd"
+"path": "res://lib/basic/statemachine/StateHandler.gd"
 }, {
 "base": "Object",
 "class": "StateHandlerFactory",
 "language": "GDScript",
-"path": "res://lib/basic/StateHandlerFactory.gd"
+"path": "res://lib/basic/statemachine/StateHandlerFactory.gd"
 }, {
 "base": "StateHandler",
 "class": "TimerStateHandler",
 "language": "GDScript",
-"path": "res://lib/basic/TimerStateHandler.gd"
+"path": "res://lib/basic/statemachine/TimerStateHandler.gd"
 } ]
 _global_script_class_icons={
 "BTAction": "",
@@ -270,6 +270,10 @@ config/name="My Dog Is A Cat"
 run/main_scene="res://Gaming.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+CommonHelper="*res://lib/CommonHelper.gd"
+
 [debug]
 
 gdscript/warnings/unused_argument=false
@@ -277,11 +281,19 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
+window/size/width=1280
+window/size/height=720
 window/dpi/allow_hidpi=true
 
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/naive_behavior_tree/plugin.cfg" )
+
+[layer_names]
+
+2d_physics/layer_1="map"
+2d_physics/layer_2="entity"
+2d_physics/layer_3="obstacle"
 
 [physics]
 
