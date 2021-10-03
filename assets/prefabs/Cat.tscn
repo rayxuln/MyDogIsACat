@@ -1,0 +1,101 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/scripts/cat/skills/HungerSkill.gd" type="Script" id=1]
+[ext_resource path="res://assets/scripts/cat/CatModel.gd" type="Script" id=2]
+[ext_resource path="res://assets/scripts/cat/skills/StatusDisplaySkill.gd" type="Script" id=3]
+[ext_resource path="res://assets/scripts/cat/skills/MovementSkill.gd" type="Script" id=4]
+[ext_resource path="res://lib/basic/mvvm/Database.gd" type="Script" id=5]
+[ext_resource path="res://assets/scripts/cat/skills/ArriveSkill.gd" type="Script" id=6]
+[ext_resource path="res://icon.png" type="Texture" id=7]
+[ext_resource path="res://assets/bt/cat/Brain.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/scripts/cat/skills/ThirstySkill.gd" type="Script" id=9]
+[ext_resource path="res://assets/scripts/cat/skills/PoopSkill.gd" type="Script" id=10]
+[ext_resource path="res://assets/scripts/cat/skills/TireSkill.gd" type="Script" id=11]
+[ext_resource path="res://assets/scripts/cat/skills/EatSkill.gd" type="Script" id=12]
+[ext_resource path="res://lib/basic/BoolReseter.gd" type="Script" id=13]
+[ext_resource path="res://assets/scripts/cat/skills/MiaoSkill.gd" type="Script" id=14]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 33.3285
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 27.115
+
+[node name="Cat" type="KinematicBody2D"]
+position = Vector2( 404.086, 272.758 )
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Database" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="CatModel" type="Node" parent="Database"]
+script = ExtResource( 2 )
+
+[node name="Body" type="Sprite" parent="."]
+texture = ExtResource( 7 )
+
+[node name="BodyArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyArea"]
+shape = SubResource( 2 )
+
+[node name="Brain" parent="." instance=ExtResource( 8 )]
+agent_path = NodePath("..")
+
+[node name="HungerSkill" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="ThirstySkill" type="Node" parent="."]
+script = ExtResource( 9 )
+
+[node name="TireSkill" type="Node" parent="."]
+script = ExtResource( 11 )
+
+[node name="PoopSkill" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[node name="MovementSkill" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="ArriveSkill" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="X" type="Position2D" parent="ArriveSkill"]
+position = Vector2( 73.6486, 181.26 )
+
+[node name="Label" type="Label" parent="ArriveSkill/X"]
+margin_left = -19.5288
+margin_top = -7.00831
+margin_right = 20.4712
+margin_bottom = 6.99169
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "x"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EatSkill" type="Node" parent="."]
+script = ExtResource( 12 )
+body_area_np = NodePath("../BodyArea")
+
+[node name="CDTimer" type="Timer" parent="EatSkill"]
+one_shot = true
+script = ExtResource( 13 )
+
+[node name="MiaoSkill" type="Node" parent="."]
+script = ExtResource( 14 )
+
+[node name="CD" type="Timer" parent="MiaoSkill"]
+one_shot = true
+script = ExtResource( 13 )
+
+[node name="StatusDisplaySkill" type="Node" parent="."]
+script = ExtResource( 3 )

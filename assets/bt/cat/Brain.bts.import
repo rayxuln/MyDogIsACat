@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.bts.importer"
+type="Resource"
+path="res://.import/Brain.bts-f5533cb85d031f0ec11bb185feb139e8.res"
+
+[deps]
+
+source_file="res://assets/bt/cat/Brain.bts"
+dest_files=[ "res://.import/Brain.bts-f5533cb85d031f0ec11bb185feb139e8.res" ]
+
+[params]
+
