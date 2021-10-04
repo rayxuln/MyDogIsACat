@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/scripts/cat/skills/HungerSkill.gd" type="Script" id=1]
 [ext_resource path="res://assets/scripts/cat/CatModel.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://assets/scripts/cat/skills/EatSkill.gd" type="Script" id=12]
 [ext_resource path="res://lib/basic/BoolReseter.gd" type="Script" id=13]
 [ext_resource path="res://assets/scripts/cat/skills/MiaoSkill.gd" type="Script" id=14]
+[ext_resource path="res://assets/scripts/cat/skills/DrinkSkill.gd" type="Script" id=15]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 33.3285
@@ -47,6 +48,43 @@ shape = SubResource( 2 )
 
 [node name="Brain" parent="." instance=ExtResource( 8 )]
 agent_path = NodePath("..")
+
+[node name="MiaoMsg" type="Node2D" parent="."]
+visible = false
+position = Vector2( 0, -67.1902 )
+
+[node name="TextLabel" type="Label" parent="MiaoMsg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -79.2155
+margin_top = -12.0
+margin_right = 170.785
+margin_bottom = 12.0
+text = "sdsdsd"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="MiaoMsg"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -58.4044
+margin_top = -54.2168
+margin_right = 191.596
+margin_bottom = -30.2168
+rect_rotation = 32.7899
+text = "|"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HungerSkill" type="Node" parent="."]
 script = ExtResource( 1 )
@@ -90,12 +128,25 @@ body_area_np = NodePath("../BodyArea")
 one_shot = true
 script = ExtResource( 13 )
 
+[node name="DrinkSkill" type="Node" parent="."]
+script = ExtResource( 15 )
+body_area_np = NodePath("../BodyArea")
+
+[node name="CDTimer" type="Timer" parent="DrinkSkill"]
+one_shot = true
+script = ExtResource( 13 )
+
 [node name="MiaoSkill" type="Node" parent="."]
 script = ExtResource( 14 )
+miao_msg_np = NodePath("../MiaoMsg")
 
 [node name="CD" type="Timer" parent="MiaoSkill"]
 one_shot = true
 script = ExtResource( 13 )
 
+[node name="MsgShowTimer" type="Timer" parent="MiaoSkill"]
+
 [node name="StatusDisplaySkill" type="Node" parent="."]
 script = ExtResource( 3 )
+
+[connection signal="timeout" from="MiaoSkill/MsgShowTimer" to="MiaoSkill" method="_on_MsgShowTimer_timeout"]

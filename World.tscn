@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/prefabs/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/tilemap/test_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/scripts/World.gd" type="Script" id=3]
 [ext_resource path="res://assets/prefabs/FoodPoint.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/prefabs/WaterPoint.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node2D"]
 position = Vector2( 208.265, 82.4069 )
@@ -35,10 +36,12 @@ position = Vector2( 77.9183, 73.006 )
 position = Vector2( 926.16, 531.722 )
 
 [node name="FoodPoint" parent="." instance=ExtResource( 4 )]
+position = Vector2( 698.415, 456.287 )
 
-[node name="FoodGenerateSkill" parent="FoodPoint" index="5"]
-max_food_num = 3
+[node name="FoodPoint2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 99.0916, 134.151 )
+
+[node name="WaterPoint" parent="." instance=ExtResource( 5 )]
+position = Vector2( 830.592, 454.841 )
 
 [node name="Cat" parent="." instance=ExtResource( 1 )]
-
-[editable path="FoodPoint"]
