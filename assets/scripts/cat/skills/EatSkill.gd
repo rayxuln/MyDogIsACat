@@ -28,18 +28,19 @@ func eat(food_point):
 	if not $CDTimer.value:
 		return false
 	$CDTimer.reset(eat_cd)
-	var fp = food_point.get_node('FoodGenerateSkill')
-	var has_eaten = fp.consume_food()
-	if has_eaten:
-		skills.HungerSkill.add_hunger(fp.food_val)
-	return has_eaten
+	var fp = food_point.get_node('FeederSkill')
+	var db = food_point.get_node('Database')
+	var has_eaten = fp.consume(1)
+	if has_eaten[0]:
+		skills.HungerSkill.add_hunger(db.val)
+	return has_eaten[0]
 
 func try_eat(food_point):
 	if skills.Database.hunger >= skills.Database.max_hunger:
 		return false
 	if not food_point:
 		return false
-	var fp = food_point.get_node('FoodGenerateSkill')
-	return fp.try_consume_food()
+	var fp = food_point.get_node('FeederSkill')
+	return not fp.empty()
 
 

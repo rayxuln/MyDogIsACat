@@ -1,17 +1,10 @@
 # >======| The Brain Of the Cat |=====< #
 
-
-# hunger
-import is_hungery?: "res://assets/scripts/cat/bt_actions/is_hungery.gd"
-import can_eat?: "res://assets/scripts/cat/bt_actions/can_eat.gd"
-import find_food_point: "res://assets/scripts/cat/bt_actions/find_food_point.gd"
-import eat: "res://assets/scripts/cat/bt_actions/eat.gd"
-
-# thirsty
-import is_thirsty?: "res://assets/scripts/cat/bt_actions/is_thirsty.gd"
-import can_drink?: "res://assets/scripts/cat/bt_actions/can_drink.gd"
-import find_water_point: "res://assets/scripts/cat/bt_actions/find_water_point.gd"
-import drink: "res://assets/scripts/cat/bt_actions/drink.gd"
+# desire
+import is_desiring?: "res://assets/scripts/cat/bt_actions/is_desiring.gd"
+import can_fullfill?: "res://assets/scripts/cat/bt_actions/can_fullfill.gd"
+import find_desire_feeder: "res://assets/scripts/cat/bt_actions/find_desire_feeder.gd"
+import interact: "res://assets/scripts/cat/bt_actions/interact.gd"
 
 # common
 import find_random_point: "res://assets/scripts/cat/bt_actions/find_random_point.gd"
@@ -29,61 +22,35 @@ subtree name: wander
 		$go_to_somewhere
 		random_timer min_wait: 0.5 max_wait: 1.5
 
-subtree name: find_food_to_eat
+subtree name: find_feeder_to_interact
 	selector
 		sequence
-			miao_msg s: "吃饭咯~"
-			find_food_point
+			miao_msg type: "GoToFeeder"
+			find_desire_feeder
 			go_to_target
-			can_eat?
+			can_fullfill?
 			always_succeed
 				until_fail
 					sequence
-						eat
+						interact
 						timer wait: 0.5
-						can_eat?
+						can_fullfill?
 			miao_msg hide: true
 		
 		parallel policy: SEQUENCE orchestrator: RESUME
-			miao s: "嘿，没有食物啦！"
+			miao type: "FeederIsEmpty"
 			$wander
 			invert
 				sequence
-					find_food_point set_target: false
-					timer wait: 0.5
-
-subtree name: find_water_to_drink
-	selector
-		sequence
-			miao_msg s: "喝水去~"
-			find_water_point
-			go_to_target
-			can_drink?
-			always_succeed
-				until_fail
-					sequence
-						drink
-						timer wait: 0.5
-						can_drink?
-			miao_msg hide: true
-		
-		parallel
-			miao s: "嘿，没有水啦！"
-			$wander
-			invert
-				sequence
-					find_water_point set_target: false
+					find_desire_feeder set_target: false
 					timer wait: 0.5
 
 tree
 	selector
-		(is_thirsty?) $find_water_to_drink
-		(is_hungery?) $find_food_to_eat
+		(is_desiring?) $find_feeder_to_interact
 		parallel
 			$wander
 			invert
-				selector
-					is_hungery?
-					is_thirsty?
+				is_desiring?
 
 

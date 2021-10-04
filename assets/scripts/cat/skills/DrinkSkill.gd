@@ -29,11 +29,12 @@ func drink(water_point):
 	if not $CDTimer.value:
 		return false
 	$CDTimer.reset(drink_cd)
-	var wp = water_point.get_node('WaterGenerateSkill')
+	var wp = water_point.get_node('FeederSkill')
+	var db = water_point.get_node('Database')
 	var v = drink_val + rand_range(-5, 5)
-	var has_drunck = wp.consume_water(v)
+	var has_drunck = wp.consume(v)
 	if has_drunck[0]:
-		skills.ThirstySkill.add_thirsty(wp.water_val * has_drunck[1])
+		skills.ThirstySkill.add_thirsty(db.val * has_drunck[1])
 	return has_drunck[0]
 
 func is_rich_the_max_threshold():
@@ -44,7 +45,7 @@ func try_drink(water_point):
 		return false
 	if not water_point:
 		return false
-	var wp = water_point.get_node('WaterGenerateSkill')
-	return wp.try_consume_water()
+	var wp = water_point.get_node('FeederSkill')
+	return not wp.empty()
 
 

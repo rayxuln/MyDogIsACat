@@ -8,10 +8,11 @@ export(NodePath) var miao_msg_np
 #----- Overrides -----
 func get_denpendencies():
 	return [
+		'DesireSkill'
 		]
 	
 #----- Methods -----
-func make_miao(s):
+func make_string_miao(s):
 	if not $CD.value:
 		return
 	$CD.reset(cd)
@@ -22,11 +23,25 @@ func make_miao(s):
 	
 	hide_msg()
 
-func show_msg(s):
+func show_string_msg(s):
 	var msg = get_node(miao_msg_np)
 	msg.visible = true
 	msg.get_node('TextLabel').text = s
 	$MsgShowTimer.start(msg_show_time)
+
+func make_miao(type):
+	match type:
+		'FeederIsEmpty':
+			var ds = skills.DesireSkill.get_desire_skill()
+			if ds != null:
+				make_string_miao(ds.obj.feeder_empty_string)
+
+func show_msg(type):
+	match type:
+		'GoToFeeder':
+			var ds = skills.DesireSkill.get_desire_skill()
+			if ds != null:
+				show_string_msg(ds.obj.go_to_feeder_string)
 
 func hide_msg():
 	get_node(miao_msg_np).visible = false

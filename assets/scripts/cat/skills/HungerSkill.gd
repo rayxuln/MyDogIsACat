@@ -1,5 +1,7 @@
 extends BaseSkillManager
 
+export(String) var go_to_feeder_string = "去吃饭咯~"
+export(String) var feeder_empty_string = "嘿，没饭吃啦!"
 
 func _ready() -> void:
 	TickSystem.connect('tick', self, 'on_ticked')
@@ -30,6 +32,10 @@ func add_hunger(v):
 
 func is_hungery():
 	return skills.Database.hunger <= skills.Database.hunger_threshold
+
+func has_reach_max_threshold():
+	return skills.Database.hunger >= skills.Database.hunger_max_threshold
+
 #----- Signals -----
 func on_ticked():
 	update_hunger()

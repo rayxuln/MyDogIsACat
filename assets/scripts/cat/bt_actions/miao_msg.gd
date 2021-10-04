@@ -1,6 +1,6 @@
 extends BTAction
 
-export(String) var s:String
+export(String) var type:String
 export(bool) var hide:bool = false
 
 #----- Methods -----
@@ -9,5 +9,5 @@ func execute():
 	if hide:
 		miao_skill.hide_msg()
 	else:
-		miao_skill.show_msg(s)
+		miao_skill.show_msg(type)
 	return SUCCEEDED

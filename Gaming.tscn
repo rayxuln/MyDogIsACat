@@ -12,13 +12,15 @@ script = ExtResource( 8 )
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="StatusDisplay" type="RichTextLabel" parent="Control"]
-margin_right = 501.0
+anchor_right = 1.0
 margin_bottom = 682.0
+mouse_filter = 2
 custom_fonts/normal_font = ExtResource( 9 )
 bbcode_enabled = true
 bbcode_text = "dasdasdasd

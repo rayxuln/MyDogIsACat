@@ -1,5 +1,7 @@
 extends BaseSkillManager
 
+export(String) var go_to_feeder_string = "喝水去咯~"
+export(String) var feeder_empty_string = "嘿，没水啦!"
 
 func _ready() -> void:
 	TickSystem.connect('tick', self, 'on_ticked')
@@ -31,6 +33,8 @@ func add_thirsty(v):
 	if skills.Database.thirsty > skills.Database.max_thirsty:
 		skills.Database.thirsty = skills.Database.max_thirsty
 
+func has_reach_max_threshold():
+	return skills.Database.thirsty >= skills.Database.thirsty_max_threshold
 #----- Signals -----
 func on_ticked():
 	update_thirsty()

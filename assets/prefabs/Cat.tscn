@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/scripts/cat/skills/HungerSkill.gd" type="Script" id=1]
 [ext_resource path="res://assets/scripts/cat/CatModel.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://lib/basic/BoolReseter.gd" type="Script" id=13]
 [ext_resource path="res://assets/scripts/cat/skills/MiaoSkill.gd" type="Script" id=14]
 [ext_resource path="res://assets/scripts/cat/skills/DrinkSkill.gd" type="Script" id=15]
+[ext_resource path="res://assets/scripts/cat/skills/DesireSkill.gd" type="Script" id=16]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 33.3285
@@ -136,6 +137,13 @@ body_area_np = NodePath("../BodyArea")
 one_shot = true
 script = ExtResource( 13 )
 
+[node name="DesireSkill" type="Node" parent="."]
+script = ExtResource( 16 )
+body_area_np = NodePath("../BodyArea")
+
+[node name="StatusDisplaySkill" type="Node" parent="."]
+script = ExtResource( 3 )
+
 [node name="MiaoSkill" type="Node" parent="."]
 script = ExtResource( 14 )
 miao_msg_np = NodePath("../MiaoMsg")
@@ -145,8 +153,5 @@ one_shot = true
 script = ExtResource( 13 )
 
 [node name="MsgShowTimer" type="Timer" parent="MiaoSkill"]
-
-[node name="StatusDisplaySkill" type="Node" parent="."]
-script = ExtResource( 3 )
 
 [connection signal="timeout" from="MiaoSkill/MsgShowTimer" to="MiaoSkill" method="_on_MsgShowTimer_timeout"]
