@@ -14,22 +14,22 @@ import miao_msg: "res://assets/scripts/cat/bt_actions/miao_msg.gd"
 
 subtree name: go_to_somewhere
 	sequence
-		find_random_point
-		go_to_target
+		find_random_point # 随机选一个地点
+		go_to_target # 走到那个地点
 
 subtree name: wander
 	sequence
-		$go_to_somewhere
-		random_timer min_wait: 0.5 max_wait: 1.5
+		$go_to_somewhere # 随机去一个地点
+		random_timer min_wait: 0.5 max_wait: 1.5 # 静止若干秒
 
 subtree name: find_feeder_to_interact
 	selector
-		sequence
+		sequence # 找到提供器，并一直消耗里面的资源
 			miao_msg type: "GoToFeeder"
 			find_desire_feeder
 			go_to_target
 			can_fullfill?
-			always_succeed
+			always_succeed # 一直消耗资源，直到饱了或者资源没了
 				until_fail
 					sequence
 						interact
@@ -37,8 +37,8 @@ subtree name: find_feeder_to_interact
 						can_fullfill?
 			miao_msg hide: true
 		
-		parallel policy: SEQUENCE orchestrator: RESUME
-			miao type: "FeederIsEmpty"
+		parallel policy: SEQUENCE orchestrator: RESUME # 如果提供器里没有资源，但没有满足需求，就乱走，并大叫
+			miao type: "FeederIsEmpty" # 叫
 			$wander
 			invert
 				sequence
@@ -47,8 +47,8 @@ subtree name: find_feeder_to_interact
 
 tree
 	selector
-		(is_desiring?) $find_feeder_to_interact
-		parallel
+		(is_desiring?) $find_feeder_to_interact # 寻找提供器
+		parallel # 如果 is_desiring为真则结束这个并行执行节点
 			$wander
 			invert
 				is_desiring?
