@@ -1,5 +1,7 @@
 extends BTAction
 
+export(bool) var set_target:bool = true
+export(bool) var include_empty:bool = true
 
 #----- Methods -----
 func execute():
@@ -11,12 +13,15 @@ func execute():
 		var d:Vector2 = fp.get_the_position() - tree.agent.global_position
 		if d.length_squared() < neareast_d:
 			var database = fp.get_node('Database')
+			if database.food_num <= 0 and not include_empty:
+				continue
 			if database.food_num <= 0 and neareast_fp != null:
 				continue
 			neareast_d = d.length_squared()
 			neareast_fp = fp
 	
 	if neareast_fp:
-		arrive_skill.go_to(neareast_fp.get_the_position())
+		if set_target:
+			arrive_skill.set_target(neareast_fp.get_the_position())
 		return SUCCEEDED
 	return FAILED

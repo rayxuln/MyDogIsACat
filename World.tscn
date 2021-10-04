@@ -36,4 +36,9 @@ position = Vector2( 926.16, 531.722 )
 
 [node name="FoodPoint" parent="." instance=ExtResource( 4 )]
 
+[node name="FoodGenerateSkill" parent="FoodPoint" index="5"]
+max_food_num = 3
+
 [node name="Cat" parent="." instance=ExtResource( 1 )]
+
+[editable path="FoodPoint"]

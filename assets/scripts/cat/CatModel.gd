@@ -8,6 +8,7 @@ var tire:float = 0 # 疲惫度，越大越疲惫
 var poop:float = 0 # 排泄度，越大越需要排泄
 
 var hunger_threshold = 45
+var thirsty_threshold = 30
 
 var max_health:float = 100
 var max_hunger:float = 100

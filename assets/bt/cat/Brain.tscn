@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeSelector.gd" type="Script" id=1]
 [ext_resource path="res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeSequence.gd" type="Script" id=2]
 [ext_resource path="res://addons/naive_behavior_tree/behavior_tree/classes/BehaviorTree.gd" type="Script" id=3]
-[ext_resource path="res://assets/scripts/cat/bt_actions/go_to_somewhere.gd" type="Script" id=4]
+[ext_resource path="res://assets/scripts/cat/bt_actions/find_random_point.gd" type="Script" id=4]
 [ext_resource path="res://assets/scripts/cat/bt_actions/is_hungery.gd" type="Script" id=5]
 [ext_resource path="res://assets/scripts/cat/bt_actions/go_to_target.gd" type="Script" id=6]
 [ext_resource path="res://assets/scripts/cat/bt_actions/miao.gd" type="Script" id=7]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/scripts/cat/bt_actions/can_eat.gd" type="Script" id=13]
 [ext_resource path="res://addons/naive_behavior_tree/behavior_tree/classes/decorators/BTDecoratorInvert.gd" type="Script" id=14]
 [ext_resource path="res://addons/naive_behavior_tree/behavior_tree/classes/composites/BTCompositeParallel.gd" type="Script" id=15]
+[ext_resource path="res://addons/naive_behavior_tree/behavior_tree/classes/actions/BTActionRandomTimer.gd" type="Script" id=16]
 
 [node name="Brain" type="Node"]
 script = ExtResource( 3 )
@@ -23,75 +24,107 @@ root_path = NodePath("selector")
 [node name="selector" type="Node" parent="."]
 script = ExtResource( 1 )
 
-[node name="selector" type="Node" parent="selector"]
+[node name="find_food_to_eat [selector]" type="Node" parent="selector"]
 script = ExtResource( 1 )
 guard_path = NodePath("Guards/is_hungery\?")
 
-[node name="sequence" type="Node" parent="selector/selector"]
+[node name="sequence" type="Node" parent="selector/find_food_to_eat [selector]"]
 script = ExtResource( 2 )
 
-[node name="find_food_point" type="Node" parent="selector/selector/sequence"]
+[node name="find_food_point" type="Node" parent="selector/find_food_to_eat [selector]/sequence"]
 script = ExtResource( 9 )
 
-[node name="go_to_target" type="Node" parent="selector/selector/sequence"]
+[node name="go_to_target" type="Node" parent="selector/find_food_to_eat [selector]/sequence"]
 script = ExtResource( 6 )
 
-[node name="can_eat\?" type="Node" parent="selector/selector/sequence"]
+[node name="can_eat\?" type="Node" parent="selector/find_food_to_eat [selector]/sequence"]
 script = ExtResource( 13 )
 
-[node name="always_succeed" type="Node" parent="selector/selector/sequence"]
+[node name="always_succeed" type="Node" parent="selector/find_food_to_eat [selector]/sequence"]
 script = ExtResource( 11 )
 
-[node name="until_fail" type="Node" parent="selector/selector/sequence/always_succeed"]
+[node name="until_fail" type="Node" parent="selector/find_food_to_eat [selector]/sequence/always_succeed"]
 script = ExtResource( 12 )
 
-[node name="sequence" type="Node" parent="selector/selector/sequence/always_succeed/until_fail"]
+[node name="sequence" type="Node" parent="selector/find_food_to_eat [selector]/sequence/always_succeed/until_fail"]
 script = ExtResource( 2 )
 
-[node name="eat" type="Node" parent="selector/selector/sequence/always_succeed/until_fail/sequence"]
+[node name="eat" type="Node" parent="selector/find_food_to_eat [selector]/sequence/always_succeed/until_fail/sequence"]
 script = ExtResource( 8 )
 
-[node name="timer" type="Node" parent="selector/selector/sequence/always_succeed/until_fail/sequence"]
+[node name="timer" type="Node" parent="selector/find_food_to_eat [selector]/sequence/always_succeed/until_fail/sequence"]
 script = ExtResource( 10 )
 wait = 0.5
 
-[node name="can_eat\?" type="Node" parent="selector/selector/sequence/always_succeed/until_fail/sequence"]
+[node name="can_eat\?" type="Node" parent="selector/find_food_to_eat [selector]/sequence/always_succeed/until_fail/sequence"]
 script = ExtResource( 13 )
 
-[node name="parallel" type="Node" parent="selector/selector"]
+[node name="parallel" type="Node" parent="selector/find_food_to_eat [selector]"]
 script = ExtResource( 15 )
 
-[node name="miao" type="Node" parent="selector/selector/parallel"]
+[node name="miao" type="Node" parent="selector/find_food_to_eat [selector]/parallel"]
 script = ExtResource( 7 )
 s = "嘿，没有食物啦！"
 
-[node name="sequence" type="Node" parent="selector/selector/parallel"]
+[node name="wander [sequence]" type="Node" parent="selector/find_food_to_eat [selector]/parallel"]
 script = ExtResource( 2 )
 
-[node name="go_to_somewhere" type="Node" parent="selector/selector/parallel/sequence"]
+[node name="go_to_somewhere [sequence]" type="Node" parent="selector/find_food_to_eat [selector]/parallel/wander [sequence]"]
+script = ExtResource( 2 )
+
+[node name="find_random_point" type="Node" parent="selector/find_food_to_eat [selector]/parallel/wander [sequence]/go_to_somewhere [sequence]"]
 script = ExtResource( 4 )
 
-[node name="timer" type="Node" parent="selector/selector/parallel/sequence"]
-script = ExtResource( 10 )
-wait = 2.0
+[node name="go_to_target" type="Node" parent="selector/find_food_to_eat [selector]/parallel/wander [sequence]/go_to_somewhere [sequence]"]
+script = ExtResource( 6 )
 
-[node name="invert" type="Node" parent="selector/selector/parallel"]
+[node name="random_timer" type="Node" parent="selector/find_food_to_eat [selector]/parallel/wander [sequence]"]
+script = ExtResource( 16 )
+min_wait = 0.5
+max_wait = 1.5
+
+[node name="invert" type="Node" parent="selector/find_food_to_eat [selector]/parallel"]
 script = ExtResource( 14 )
 
-[node name="find_food_point" type="Node" parent="selector/selector/parallel/invert"]
-script = ExtResource( 9 )
-
-[node name="Guards" type="Node" parent="selector/selector"]
-
-[node name="is_hungery\?" type="Node" parent="selector/selector/Guards"]
-script = ExtResource( 5 )
-
-[node name="sequence" type="Node" parent="selector"]
+[node name="sequence" type="Node" parent="selector/find_food_to_eat [selector]/parallel/invert"]
 script = ExtResource( 2 )
 
-[node name="go_to_somewhere" type="Node" parent="selector/sequence"]
+[node name="find_food_point" type="Node" parent="selector/find_food_to_eat [selector]/parallel/invert/sequence"]
+script = ExtResource( 9 )
+set_target = false
+include_empty = false
+
+[node name="timer" type="Node" parent="selector/find_food_to_eat [selector]/parallel/invert/sequence"]
+script = ExtResource( 10 )
+wait = 0.5
+
+[node name="Guards" type="Node" parent="selector/find_food_to_eat [selector]"]
+
+[node name="is_hungery\?" type="Node" parent="selector/find_food_to_eat [selector]/Guards"]
+script = ExtResource( 5 )
+
+[node name="parallel" type="Node" parent="selector"]
+script = ExtResource( 15 )
+
+[node name="wander [sequence]" type="Node" parent="selector/parallel"]
+script = ExtResource( 2 )
+
+[node name="go_to_somewhere [sequence]" type="Node" parent="selector/parallel/wander [sequence]"]
+script = ExtResource( 2 )
+
+[node name="find_random_point" type="Node" parent="selector/parallel/wander [sequence]/go_to_somewhere [sequence]"]
 script = ExtResource( 4 )
 
-[node name="timer" type="Node" parent="selector/sequence"]
-script = ExtResource( 10 )
-wait = 2.0
+[node name="go_to_target" type="Node" parent="selector/parallel/wander [sequence]/go_to_somewhere [sequence]"]
+script = ExtResource( 6 )
+
+[node name="random_timer" type="Node" parent="selector/parallel/wander [sequence]"]
+script = ExtResource( 16 )
+min_wait = 0.5
+max_wait = 1.5
+
+[node name="invert" type="Node" parent="selector/parallel"]
+script = ExtResource( 14 )
+
+[node name="is_hungery\?" type="Node" parent="selector/parallel/invert"]
+script = ExtResource( 5 )

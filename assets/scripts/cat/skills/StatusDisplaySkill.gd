@@ -23,7 +23,8 @@ func get_denpendencies():
 	return [
 		'Database',
 		'Brain',
-		'HungerSkill'
+		'HungerSkill',
+		'ThirstySkill',
 		]
 	
 #----- Methods -----
@@ -37,6 +38,10 @@ func handle_k_v(k, v):
 			var is_hungery = skills.HungerSkill.is_hungery()
 			if is_hungery:
 				return '%s (饥饿)' % v
+		'thirsty':
+			var is_thirsty = skills.ThirstySkill.is_thirsty()
+			if is_thirsty:
+				return '%s (口渴)' % v
 	return v
 
 func update_current_task_list_text():
@@ -51,11 +56,12 @@ func on_data_changed(newValue, oldValue, k):
 	update_status_text(k, newValue)
 	
 func on_brain_task_start(task):
-	if not task in current_task_list:
+	if not task in current_task_list and task.has_method('_Class_Type_BTAction_'):
 		current_task_list.append(task)
 		update_current_task_list_text()
 #		var displayer = CommonHelper.game_manager.get_status_display()
 #		displayer.add_msg('task start: %s' % task.name)
+#		print('task start: %s' % get_path_to(task))
 
 func on_brain_task_end(task):
 	if task in current_task_list:
@@ -63,6 +69,8 @@ func on_brain_task_end(task):
 		update_current_task_list_text()
 #		var displayer = CommonHelper.game_manager.get_status_display()
 #		displayer.add_msg('task end: %s' % task.name)
+#		if task.has_method('_Class_Type_BTAction_'):
+#			print('task end: %s' % get_path_to(task))
 	
 	
 

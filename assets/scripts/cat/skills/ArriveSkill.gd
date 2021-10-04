@@ -27,10 +27,15 @@ func get_denpendencies():
 func get_current_position():
 	return get_owner().global_position
 
-func go_to(t:Vector2):
+func set_target(t:Vector2):
 	target = t
-	is_arrived = false
-	
 	$X.global_position = t
 
+func go_to(t):
+	if t is Vector2:
+		set_target(t)
+	is_arrived = false
 
+func stop():
+	is_arrived = true
+	skills.MovementSkill.set_move(false)

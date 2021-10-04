@@ -22,6 +22,9 @@ func change_rate_to_fast():
 
 func change_rate_to_slow():
 	skills.Database.thirsty_rate = 0.1
+
+func is_thirsty():
+	return skills.Database.thirsty < skills.Database.thirsty_threshold
 #----- Signals -----
 func on_ticked():
 	update_thirsty()

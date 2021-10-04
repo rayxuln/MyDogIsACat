@@ -1,17 +1,22 @@
 
 
+import find_random_point: "res://assets/scripts/cat/bt_actions/find_random_point.gd"
 import find_food_point: "res://assets/scripts/cat/bt_actions/find_food_point.gd"
 import can_eat?: "res://assets/scripts/cat/bt_actions/can_eat.gd"
 import go_to_target: "res://assets/scripts/cat/bt_actions/go_to_target.gd"
 import eat: "res://assets/scripts/cat/bt_actions/eat.gd"
 import miao: "res://assets/scripts/cat/bt_actions/miao.gd"
 import is_hungery?: "res://assets/scripts/cat/bt_actions/is_hungery.gd"
-import go_to_somewhere: "res://assets/scripts/cat/bt_actions/go_to_somewhere.gd"
+
+subtree name: go_to_somewhere
+	sequence
+		find_random_point
+		go_to_target
 
 subtree name: wander
 	sequence
-		go_to_somewhere
-		timer wait: 2
+		$go_to_somewhere
+		random_timer min_wait: 0.5 max_wait: 1.5
 
 subtree name: find_food_to_eat
 	selector
@@ -30,11 +35,16 @@ subtree name: find_food_to_eat
 			miao s: "嘿，没有食物啦！"
 			$wander
 			invert
-				find_food_point
+				sequence
+					find_food_point set_target: false include_empty: false
+					timer wait: 0.5
 
 tree
 	selector
 		(is_hungery?) $find_food_to_eat
-		$wander
+		parallel
+			$wander
+			invert
+				is_hungery?
 
 
