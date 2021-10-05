@@ -117,10 +117,20 @@ __meta__ = {
 
 [node name="Empty" type="Button" parent="Control"]
 margin_left = 16.6248
-margin_top = -16.2877
+margin_top = -38.5602
 margin_right = 37.6248
-margin_bottom = 13.7123
+margin_bottom = -8.56017
 text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cd" type="Button" parent="Control"]
+margin_left = 16.6248
+margin_top = 8.21201
+margin_right = 37.6248
+margin_bottom = 38.212
+text = ">"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -169,8 +179,10 @@ script = ExtResource( 8 )
 
 [node name="ControlSkill" type="Node" parent="."]
 script = ExtResource( 2 )
+cd_button_np = NodePath("../Control/Cd")
 
 [connection signal="pressed" from="Control/AddButton" to="ControlSkill" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="Control/Empty" to="ControlSkill" method="_on_Empty_pressed"]
+[connection signal="pressed" from="Control/Cd" to="ControlSkill" method="_on_Cd_pressed"]
 [connection signal="pressed" from="Control/SubButton" to="ControlSkill" method="_on_SubButton_pressed"]
 [connection signal="timeout" from="GenerateSkill/GenerateTimer" to="GenerateSkill" method="_on_GenerateTimer_timeout"]

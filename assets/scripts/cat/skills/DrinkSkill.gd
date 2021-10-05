@@ -25,9 +25,10 @@ func get_water_point():
 			return a.owner
 	return null
 
+# [正在喝, 是否成功]
 func drink(water_point):
 	if not $CDTimer.value:
-		return false
+		return [true, false]
 	$CDTimer.reset(drink_cd)
 	var wp = water_point.get_node('FeederSkill')
 	var db = water_point.get_node('Database')
@@ -35,7 +36,7 @@ func drink(water_point):
 	var has_drunck = wp.consume(v)
 	if has_drunck[0]:
 		skills.ThirstySkill.add_thirsty(db.val * has_drunck[1])
-	return has_drunck[0]
+	return [false, has_drunck[0]]
 
 func is_rich_the_max_threshold():
 	return skills.Database.thirsty >= skills.Database.thirsty_max_threshold

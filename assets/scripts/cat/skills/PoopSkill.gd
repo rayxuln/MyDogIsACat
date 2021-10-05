@@ -49,15 +49,16 @@ func decrease_poop(v):
 	if skills.Database.poop < 0:
 		skills.Database.poop = 0
 
+# [正在拉, 是否成功]
 func poop(poop_point):
 	if not $PoopTimer.is_stopped():
-		return false
+		return [true, false]
 	var ph = poop_point.get_node('PoopHandleSkill')
 	var v = min(skills.Database.poop, rand_range(poop_min_val, poop_max_val))
 	var has_pooped = ph.put_poop(v)
 	if has_pooped[0]:
 		decrease_poop(has_pooped[1])
-	return has_pooped[0]
+	return [false, has_pooped[0]]
 
 func try_poop(poop_point):
 	if skills.Database.poop <= 0:

@@ -16,6 +16,8 @@ export(NodePath) var num_label_np
 export(NodePath) var cd_label_np
 export(NodePath) var anim_player_np
 
+export(bool) var cd_paused = false
+
 func _ready() -> void:
 	$GenerateTimer.start(next_generate_cd())
 	
@@ -26,7 +28,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	get_cd_label().text = renew_text % $GenerateTimer.time_left
-	$GenerateTimer.paused = skills.Database.num >= max_num if sign(regenerate_min_num) > 0 else skills.Database.num <= 0
+	$GenerateTimer.paused = (skills.Database.num >= max_num if sign(regenerate_min_num) > 0 else skills.Database.num <= 0) or cd_paused
 #----- Overrides -----
 func get_denpendencies():
 	return [
