@@ -15,8 +15,8 @@ func execute():
 	for df in desire_feeders:
 		var d:Vector2 = df.get_the_position() - tree.agent.global_position
 		if d.length_squared() < neareast_d:
-			var database = df.get_node('Database')
-			if database.num <= 0:
+			var fs = df.get_node('FeederSkill')
+			if fs.get_check_empty_func_by_feeder_type().call_func():
 				continue
 			neareast_d = d.length_squared()
 			neareast_df = df

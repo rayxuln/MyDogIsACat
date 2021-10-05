@@ -1,6 +1,7 @@
 extends BaseSkillManager 
 
 export(String) var num_text:String = "%s/%s"
+export(String) var renew_text:String = "下次投放: %ds"
 
 export(int) var max_num = 100
 export(float) var init_num = 60
@@ -24,7 +25,8 @@ func _ready() -> void:
 	skills.Database.val = rand_range(min_val, max_val)
 
 func _process(delta: float) -> void:
-	get_cd_label().text = '下次投放: %ds' % $GenerateTimer.time_left
+	get_cd_label().text = renew_text % $GenerateTimer.time_left
+	$GenerateTimer.paused = skills.Database.num >= max_num if sign(regenerate_min_num) > 0 else skills.Database.num <= 0
 #----- Overrides -----
 func get_denpendencies():
 	return [
@@ -39,16 +41,17 @@ func next_generate_cd():
 	return rand_range(6, 10)
 
 func generate():
+	var old = skills.Database.num
 	skills.Database.num += rand_range(regenerate_min_num, regenerate_max_num)
-	if skills.Database.num >= max_num:
-		skills.Database.num = max_num
-	else:
+	
+	skills.Database.num = clamp(skills.Database.num, 0, max_num)
+	
+	if skills.Database.num != old:
 		skills.Database.val = rand_range(min_val, max_val)
 		get_node(anim_player_np).play('renew')
 
 #----- Signals -----
 func on_num_changed(new, old):
-	$GenerateTimer.paused = new >= max_num
 	get_num_label().text = num_text % [new, max_num]
 
 func _on_GenerateTimer_timeout() -> void:

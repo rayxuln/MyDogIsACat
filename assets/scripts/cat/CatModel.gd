@@ -11,6 +11,8 @@ var hunger_threshold = 45
 var hunger_max_threshold = 90
 var thirsty_threshold = 30
 var thirsty_max_threshold = 80
+var poop_threshold = 90
+var poop_min_threshold = 10
 
 var max_health:float = 100
 var max_hunger:float = 100

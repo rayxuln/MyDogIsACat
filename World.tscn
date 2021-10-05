@@ -1,71 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/prefabs/Cat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/tilemap/test_tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://assets/scripts/World.gd" type="Script" id=3]
-[ext_resource path="res://assets/prefabs/DesireFeeder.tscn" type="PackedScene" id=6]
-
-[sub_resource type="Animation" id=1]
-resource_name = "eat"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Bg1:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ), Color( 0.478431, 0.988235, 0.643137, 0 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "renew"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Bg1:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.478431, 0.988235, 0.643137, 0 ) ]
-}
-
-[sub_resource type="Animation" id=3]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Bg1:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 1 ), Color( 0.478431, 0.988235, 0.643137, 0 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Bg1:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.478431, 0.988235, 0.643137, 0 ) ]
-}
+[ext_resource path="res://assets/prefabs/WaterFeeder.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/prefabs/FoodFeeder.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/prefabs/PoopHandler.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 position = Vector2( 208.265, 82.4069 )
@@ -96,55 +36,10 @@ position = Vector2( 77.9183, 73.006 )
 [node name="RoomEnd" type="Position2D" parent="."]
 position = Vector2( 926.16, 531.722 )
 
-[node name="FoodFeeder" parent="." instance=ExtResource( 6 )]
-position = Vector2( 819.777, 131.155 )
+[node name="FoodFeeder" parent="." instance=ExtResource( 5 )]
 
-[node name="GenerateSkill" parent="FoodFeeder" index="9"]
-num_text = "主食: %s/%s"
-max_num = 3
-init_num = 2.0
-min_val = 10.0
-max_val = 15.0
-regenerate_min_num = 1.0
-regenerate_max_num = 1.0
+[node name="WaterFeeder" parent="." instance=ExtResource( 4 )]
 
-[node name="FoodFeeder2" parent="." instance=ExtResource( 6 )]
-position = Vector2( 397.614, 485.672 )
-
-[node name="AnimationPlayer" parent="FoodFeeder2" index="6"]
-anims/eat = SubResource( 1 )
-anims/renew = SubResource( 2 )
-
-[node name="GenerateSkill" parent="FoodFeeder2" index="9"]
-num_text = "小零食: %s/%s"
-max_num = 10
-init_num = 0.0
-min_val = 5.0
-max_val = 7.0
-regenerate_min_num = 1.0
-regenerate_max_num = 1.0
-
-[node name="WaterFeeder" parent="." instance=ExtResource( 6 )]
-position = Vector2( 172.287, 465.831 )
-
-[node name="Bg" parent="WaterFeeder" index="1"]
-modulate = Color( 0.219608, 0.67451, 0.94902, 1 )
-
-[node name="AnimationPlayer" parent="WaterFeeder" index="6"]
-anims/eat = SubResource( 3 )
-anims/renew = SubResource( 4 )
-
-[node name="FeederSkill" parent="WaterFeeder" index="8"]
-feeder_type = "Water"
-
-[node name="GenerateSkill" parent="WaterFeeder" index="9"]
-num_text = "水量: %.2f/%s"
-
-[node name="ControlSkill" parent="WaterFeeder" index="10"]
-add_val = 10.0
+[node name="PoopHandler" parent="." instance=ExtResource( 6 )]
 
 [node name="Cat" parent="." instance=ExtResource( 1 )]
-
-[editable path="FoodFeeder"]
-[editable path="FoodFeeder2"]
-[editable path="WaterFeeder"]

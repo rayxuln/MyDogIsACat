@@ -1,16 +1,15 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/art/sprites/common/circle.png" type="Texture" id=1]
-[ext_resource path="res://assets/scripts/desire_feeder/DesireFeederModel.gd" type="Script" id=2]
-[ext_resource path="res://lib/basic/mvvm/Database.gd" type="Script" id=3]
-[ext_resource path="res://assets/scripts/desire_feeder/DesireFeeder.gd" type="Script" id=4]
-[ext_resource path="res://assets/scripts/desire_feeder/skills/GenerateSkill.gd" type="Script" id=5]
-[ext_resource path="res://assets/scripts/desire_feeder/skills/FeederSkill.gd" type="Script" id=6]
-[ext_resource path="res://assets/scripts/desire_feeder/skills/ControlSkill.gd" type="Script" id=7]
+[ext_resource path="res://assets/scripts/desire_feeder/DesireFeederModel.gd" type="Script" id=1]
+[ext_resource path="res://assets/scripts/desire_feeder/skills/ControlSkill.gd" type="Script" id=2]
+[ext_resource path="res://assets/scripts/desire_feeder/DesireFeeder.gd" type="Script" id=3]
+[ext_resource path="res://assets/scripts/desire_feeder/skills/FeederSkill.gd" type="Script" id=4]
+[ext_resource path="res://lib/basic/mvvm/Database.gd" type="Script" id=5]
+[ext_resource path="res://assets/scripts/desire_feeder/skills/GenerateSkill.gd" type="Script" id=6]
+[ext_resource path="res://assets/art/sprites/common/circle.png" type="Texture" id=7]
 [ext_resource path="res://assets/scripts/desire_feeder/skills/PoopHandleSkill.gd" type="Script" id=8]
 
 [sub_resource type="Animation" id=1]
-resource_name = "eat"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Bg1:modulate")
@@ -26,7 +25,6 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-resource_name = "renew"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Bg1:modulate")
@@ -44,25 +42,25 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=3]
 radius = 43.6321
 
-[node name="DesireFeeder" type="Node2D" groups=[
+[node name="WaterFeeder" type="Node2D" groups=[
 "desire_feeder",
 ]]
-position = Vector2( 130.556, 128.158 )
-script = ExtResource( 4 )
-
-[node name="Database" type="Node" parent="."]
+position = Vector2( 172.287, 465.831 )
 script = ExtResource( 3 )
 
+[node name="Database" type="Node" parent="."]
+script = ExtResource( 5 )
+
 [node name="DesireModel" type="Node" parent="Database"]
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="Bg" type="Sprite" parent="."]
-modulate = Color( 0.478431, 0.988235, 0.643137, 1 )
-texture = ExtResource( 1 )
+modulate = Color( 0.219608, 0.67451, 0.94902, 1 )
+texture = ExtResource( 7 )
 
 [node name="Bg1" type="Sprite" parent="."]
 modulate = Color( 0.478431, 0.988235, 0.643137, 0 )
-texture = ExtResource( 1 )
+texture = ExtResource( 7 )
 
 [node name="CDLabel" type="Label" parent="."]
 anchor_left = 0.5
@@ -145,12 +143,16 @@ collision_mask = 0
 shape = SubResource( 3 )
 
 [node name="FeederSkill" type="Node" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 4 )
 anim_player_np = NodePath("../AnimationPlayer")
+feeder_type = "Water"
+
+[node name="PoopHandleSkill" type="Node" parent="."]
+script = ExtResource( 8 )
 
 [node name="GenerateSkill" type="Node" parent="."]
-script = ExtResource( 5 )
-num_text = "食物: %s/%s"
+script = ExtResource( 6 )
+num_text = "水量: %.2f/%s"
 num_label_np = NodePath("../NumLabel")
 cd_label_np = NodePath("../CDLabel")
 anim_player_np = NodePath("../AnimationPlayer")
@@ -158,12 +160,9 @@ anim_player_np = NodePath("../AnimationPlayer")
 [node name="GenerateTimer" type="Timer" parent="GenerateSkill"]
 one_shot = true
 
-[node name="PoopHandleSkill" type="Node" parent="."]
-script = ExtResource( 8 )
-anim_player_np = NodePath("../AnimationPlayer")
-
 [node name="ControlSkill" type="Node" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 2 )
+add_val = 10.0
 
 [connection signal="pressed" from="Control/AddButton" to="ControlSkill" method="_on_AddButton_pressed"]
 [connection signal="pressed" from="Control/Empty" to="ControlSkill" method="_on_Empty_pressed"]

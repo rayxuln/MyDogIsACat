@@ -50,6 +50,21 @@ shape = SubResource( 2 )
 [node name="Brain" parent="." instance=ExtResource( 8 )]
 agent_path = NodePath("..")
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -66.5
+margin_top = -63.2607
+margin_right = 66.5
+margin_bottom = -39.2607
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MiaoMsg" type="Node2D" parent="."]
 visible = false
 position = Vector2( 0, -67.1902 )
@@ -98,6 +113,10 @@ script = ExtResource( 11 )
 
 [node name="PoopSkill" type="Node" parent="."]
 script = ExtResource( 10 )
+progress_bar_np = NodePath("../ProgressBar")
+
+[node name="PoopTimer" type="Timer" parent="PoopSkill"]
+one_shot = true
 
 [node name="MovementSkill" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -154,4 +173,5 @@ script = ExtResource( 13 )
 
 [node name="MsgShowTimer" type="Timer" parent="MiaoSkill"]
 
+[connection signal="timeout" from="PoopSkill/PoopTimer" to="PoopSkill" method="_on_PoopTimer_timeout"]
 [connection signal="timeout" from="MiaoSkill/MsgShowTimer" to="MiaoSkill" method="_on_MsgShowTimer_timeout"]

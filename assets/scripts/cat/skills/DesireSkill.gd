@@ -9,13 +9,18 @@ var desire_skill_list = []
 func _ready() -> void:
 	add_desire_skill(
 		'food_feeder',
-		skills.HungerSkill, 'is_hungery', 'add_hungery', 'has_reach_max_threshold',
+		skills.HungerSkill, 'is_hungery', 'has_reach_max_threshold',
 		skills.EatSkill, 'eat', 'try_eat'
 		)
 	add_desire_skill(
 		'water_feeder',
-		skills.ThirstySkill, 'is_thirsty', 'add_thirsty', 'has_reach_max_threshold',
+		skills.ThirstySkill, 'is_thirsty', 'has_reach_max_threshold',
 		skills.DrinkSkill, 'drink', 'try_drink'
+		)
+	add_desire_skill(
+		'poop_handler',
+		skills.PoopSkill, 'is_need_to_poop', 'has_reach_min_threshold',
+		skills.PoopSkill, 'poop', 'try_poop'
 		)
 #----- Overrides -----
 func get_denpendencies():
@@ -25,11 +30,12 @@ func get_denpendencies():
 		'ThirstySkill',
 		'EatSkill',
 		'DrinkSkill',
+		'PoopSkill',
 	]
 #----- Methods -----
 func add_desire_skill(
 	group,
-	obj, check_func_name, add_func_name, max_threshold_func_name,
+	obj, check_func_name, max_threshold_func_name,
 	interact_obj, interact_func_name, try_interact_func_name
 	):
 	desire_skill_list.append({
@@ -37,7 +43,6 @@ func add_desire_skill(
 		'obj': obj,
 		'check': funcref(obj, check_func_name),
 		'check_max_threshold': funcref(obj, max_threshold_func_name),
-		'add': funcref(obj, add_func_name),
 		'interact_obj': interact_obj,
 		'interact': funcref(interact_obj, interact_func_name),
 		'try_interact': funcref(interact_obj, try_interact_func_name),

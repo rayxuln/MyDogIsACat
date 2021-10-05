@@ -49,7 +49,7 @@ tree
 	selector
 		(is_desiring?) $find_feeder_to_interact # 寻找提供器
 		parallel # 如果 is_desiring为真则结束这个并行执行节点
-			$wander
+			$wander # 随意走动
 			invert
 				is_desiring?
 
