@@ -144,6 +144,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/naive_behavior_tree/import_plugin/BehaviorTreeScriptResource.gd"
 }, {
+"base": "ResourceFormatLoader",
+"class": "BehaviorTreeScriptResourceLoader",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/import_plugin/BehaviorTreeScriptResourceLoader.gd"
+}, {
+"base": "ResourceFormatSaver",
+"class": "BehaviorTreeScriptResourceSaver",
+"language": "GDScript",
+"path": "res://addons/naive_behavior_tree/import_plugin/BehaviorTreeScriptResourceSaver.gd"
+}, {
 "base": "Timer",
 "class": "BoolReseter",
 "language": "GDScript",
@@ -257,6 +267,8 @@ _global_script_class_icons={
 "BaseSkillManager": "",
 "BehaviorTree": "res://addons/naive_behavior_tree/icon.svg",
 "BehaviorTreeScriptResource": "res://addons/naive_behavior_tree/icon.svg",
+"BehaviorTreeScriptResourceLoader": "",
+"BehaviorTreeScriptResourceSaver": "",
 "BoolReseter": "",
 "DataModel": "",
 "Database": "",
@@ -286,6 +298,7 @@ config/icon="res://icon.png"
 
 CommonHelper="*res://lib/CommonHelper.gd"
 TickSystem="*res://lib/TickSystem.gd"
+NBT_RemoteDebugClient="*res://addons/naive_behavior_tree/remote_debug/RemoteDebugClient.gd"
 
 [debug]
 
