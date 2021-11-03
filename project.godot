@@ -327,6 +327,13 @@ theme/custom_font="res://assets/font/font_16.tres"
 2d_physics/layer_2="entity"
 2d_physics/layer_3="obstacle"
 
+[nbt_plugin]
+
+remote_debug/auto_enable_when_plugin_enabled=true
+remote_debug/debug_mode=false
+remote_debug/server_address="localhost"
+remote_debug/server_port=45537
+
 [physics]
 
 common/enable_pause_aware_picking=true
